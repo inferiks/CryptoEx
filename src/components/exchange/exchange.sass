@@ -1,0 +1,57 @@
+.exchange
+  padding-top: 250px
+  display: flex
+  justify-content: space-around
+  align-items: center
+  &-about
+    background: rgba(81, 122, 227, 0.2)
+    padding: 25px
+    border: 2px solid grey
+    height: 500px
+    border-radius: 50px
+  &-order
+    background: rgba(129, 239, 125, 0.2)
+    padding: 25px
+    border: 2px solid grey
+    height: 500px
+    border-radius: 50px
+    text-align: center
+    &__crypto
+      &-list
+        list-style-type: none
+        li
+          border: 1px solid gray
+          border-radius: 10px
+          padding: 5px
+          margin: 5px 0
+          width: 150px
+          cursor: pointer
+          &:hover
+            background-color: rgba(81, 122, 227, 0.4)
+            transition: all 0.2s
+      &-item-active
+        background-color: rgba(81, 122, 227, 0.4)
+    &__swap
+      width: 60px
+      height: 60px
+      cursor: pointer
+    &__currency
+      display: flex
+      justify-content: space-around
+      text-align: center
+      label
+        text-align: center
+      select
+        width: 150px
+        height: 50px
+        background: rgba(81, 122, 227, 0.2)
+        font-size: 15px
+        text-align: center
+        border: none
+        border-radius: 10px
+      &_crypto
+        display: flex
+        flex-direction: column
+      &_fiat
+        display: flex
+        flex-direction: column
