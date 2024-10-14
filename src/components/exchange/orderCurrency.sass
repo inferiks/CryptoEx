@@ -1,0 +1,72 @@
+.exchange-order
+  background: rgba(129, 239, 125, 0.2)
+  padding: 25px
+  border: 2px solid grey
+  max-height: 500px
+  border-radius: 50px
+  text-align: center
+
+  &__price
+    white-space: nowrap
+    padding-top: 20px
+    width: 150px
+    text-overflow: ellipsis
+
+  &__amount
+    font-size: 18px
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
+
+  &__list
+    overflow-y: auto
+    overflow-x: hidden
+    height: 30vh
+    ul
+      list-style-type: none
+      height: 200px
+
+    li
+      border: 1px solid gray
+      border-radius: 10px
+      padding: 5px
+      margin: 5px 0
+      width: 150px
+      cursor: pointer
+      &:hover
+        background-color: rgba(81, 122, 227, 0.4)
+        transition: all 0.2s
+  &__item_active
+    background-color: rgba(81, 122, 227, 0.4)
+
+    &::-webkit-scrollbar
+      background: rgba(75, 75, 75, 0.1)
+      border-radius: 10px
+      width: 5px
+
+    &::-webkit-scrollbar-thumb
+      border-radius: 10px
+      background: rgba(75, 75, 75, 0.5)
+
+  &__swap
+    width: 60px
+    height: 60px
+    cursor: pointer
+
+  &__currency
+    display: flex
+    justify-content: space-around
+    text-align: center
+    &_crypto, &_fiat
+      display: flex
+      flex-direction: column
+
+    select
+      width: 150px
+      height: 50px
+      background: rgba(81, 122, 227, 0.2)
+      font-size: 15px
+      text-align: center
+      border: none
+      border-radius: 10px

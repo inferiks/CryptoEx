@@ -5,7 +5,7 @@ import telegram from '../../assets/telegramLogo.svg'
 const Header = () => {
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="header-logo">EXCHANGE</div>
       <div className="header-buttons">
         <MUILink href="#" underline="no" className="header-buttons__el" color="black">Buy crypto</MUILink>
@@ -15,7 +15,7 @@ const Header = () => {
       <a href="https://t.me" target="_blank" className="header-contacts">
         <img src={telegram}></img>
       </a>
-    </div>
+    </header>
     // <MUILink>test</MUILink>
   )
 }
