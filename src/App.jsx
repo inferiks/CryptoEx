@@ -1,18 +1,21 @@
-import { Container } from '@mui/material'
-import Header from './components/header/Header'
-import Exchange from './components/exchange/Exchange'
-import Footer from './components/footer/Footer'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Home } from './pages/home/Home'
+import Header from "./components/layout/header/Header"
+import Footer from "./components/layout/footer/Footer"
+
 
 function App() {
 
   return (
-    <>
-      <Container>
+    <Router>
+      <div className="app">
         <Header />
-        <Exchange />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
         <Footer />
-      </Container>
-    </>
+      </div>
+    </Router>
   )
 }
 

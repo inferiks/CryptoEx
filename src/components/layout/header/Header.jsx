@@ -1,6 +1,6 @@
 import { Link as MUILink } from "@mui/material"
 import './header.sass'
-import telegram from '../../assets/telegramLogo.svg'
+import telegram from '../../../assets/telegramLogo.svg'
 
 const Header = () => {
 
