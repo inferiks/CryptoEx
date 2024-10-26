@@ -1,12 +1,16 @@
 import { Link as MUILink } from "@mui/material"
 import './header.sass'
 import telegram from '../../../assets/telegramLogo.svg'
+import { Link } from "react-router-dom"
 
 const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-logo">EXCHANGE</div>
+      <Link className="header-logo" to="/">
+        EXCHANGE
+      </Link>
+
       <div className="header-buttons">
         <MUILink href="#" underline="no" className="header-buttons__el" color="black">Buy crypto</MUILink>
         <MUILink href="#" underline="no" className="header-buttons__el" color="black">About us</MUILink>

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Home } from './pages/home/Home'
 import Header from "./components/layout/header/Header"
 import Footer from "./components/layout/footer/Footer"
+import Order from './components/order/Order'
 import NoMatch from './pages/noMatch/NoMatch'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/order" element={<Order />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
         <Footer />

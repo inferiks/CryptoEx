@@ -1,6 +1,7 @@
 import { Grid2 as Grid, Checkbox, FormControlLabel, TextField, Button } from "@mui/material"
 import OrderCurrency from "./OrderCurrency";
 import './exchange.sass'
+import { Link } from "react-router-dom";
 
 export default function Exchange() {
   return (
@@ -61,7 +62,9 @@ export default function Exchange() {
                   <span>USDT TRC20</span>
                 </div>
               </div>
-              <Button variant="contained" color="success" disableRipple sx={{ width: '10vw', margin: '0 auto' }}>Proceed to order</Button>
+              <Link to="/order">
+                <Button variant="contained" color="success" disableRipple sx={{ width: '10vw', margin: '0 auto' }}>Proceed to order</Button>
+              </Link>
             </div>
           </div>
         </div>
