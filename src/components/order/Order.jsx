@@ -56,8 +56,25 @@ const Order = () => {
       </Grid>
       <Grid container>
         <Grid size={1} />
-        <Grid size={6} className="order__transfer_info">asd</Grid>
-        <Grid size={4} className="order__address">Address: UQCI7d2SQ9ili8W41vpsIuaMyVmBMQcsBxEcM01UE5aL-j5l</Grid>
+        <Grid size={5} className="order__transfer_info">
+          <h3>Amount to be paid</h3>
+          <span>
+            5,100.99
+          </span>
+          <h3>Payment requisites</h3>
+          <span>
+            TPAgKfYzRdK83Qocc4gXvEVu4jPKfeuer5
+          </span>
+          <h3>MEMO / TAG</h3>
+          <span>
+            1239875764
+          </span>
+        </Grid>
+        <Grid size={1} />
+        <Grid size={4} className="order__address">
+          <h2>Address:</h2>
+          <span>UQCI7d2SQ9ili8W41vpsIuaMyVmBMQcsBxEcM01UE5aL-j5l</span>
+        </Grid>
       </Grid>
     </Container>
   );

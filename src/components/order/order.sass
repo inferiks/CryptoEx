@@ -1,4 +1,5 @@
 @import '../../variables.sass'
+@import '../../mixins.sass'
 
 .order
 
@@ -8,19 +9,15 @@
     margin: 20px auto
     text-align: center
     background-color: $green-arctic
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2)
     border-radius: 30px
     padding: 40px 40px
     max-width: 100%
     width: 600px
     align-items: center
+    @include window-style
 
     &_info
       background-color: $green-spring
-
-    &::before
-      box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5)
-      backdrop-filter: blur(1px)
 
   &__info
     text-align: left
@@ -29,8 +26,25 @@
     display: flex
     align-items: center
     text-align: left
+
   &__currency
     font-size: 16px
+
   &__total
     font-size: 20px
     font-weight: bold
+
+  &__address
+    margin-top: 20px
+    background-color: $green-spring
+    border-radius: 30px
+    padding: 30px 40px
+    word-break: break-all
+    @include window-style
+
+  &__transfer_info
+    margin-top: 20px
+    background-color: $green-arctic
+    border-radius: 30px
+    padding: 30px 40px
+    @include window-style
