@@ -1,6 +1,7 @@
 import { Container, Grid2 as Grid } from "@mui/material";
 import './order.sass';
 import { useEffect, useState } from "react";
+import SwapIcon from "../common/SwapIcon";
 
 const Order = () => {
   const [currentDate, setCurrentDate] = useState("");
@@ -21,19 +22,42 @@ const Order = () => {
   return (
     <Container sx={{ paddingTop: "100px" }}>
       <Grid container>
-        <Grid size={10} className="exchange__window exchange__window_info">
-          <div className="exchange__date">
+        <Grid size={10} className="order__window order__window_info">
+          <div className="order__date">
             <h2>Order №XXXXXX</h2>
             <span>{currentDate}</span>
           </div>
-          <div className="exchange__currency">
-            <h3>Currency exchange rate: xxx Currency1 = xxx Currency2</h3>
-            <span>Fixed exchange rate</span>
+          <div className="order__info">
+            <h3>Currency order rate: xxx Currency1 = xxx Currency2</h3>
+            <span>Fixed order rate</span>
           </div>
         </Grid>
-        <Grid size={10} className="exchange__window">
-
+        <Grid size={10} className="order__window">
+          <div className="order__amount ">
+            <img src="https://cryptologos.cc/logos/tether-usdt-logo.svg" alt="" style={{ width: '30px', height: '30px' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '20px' }}>
+              <div className="order__currency">
+                Tether(TRC20)
+              </div>
+              <span className="order__total">5,100.99</span>
+            </div>
+          </div>
+          <SwapIcon isClickable={false} />
+          <div className="order__amount ">
+            <img src="https://cryptologos.cc/logos/toncoin-ton-logo.svg" alt="" style={{ width: '30px', height: '30px' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '20px' }}>
+              <div className="order__currency">
+                Toncoin(TON)
+              </div>
+              <span className="order__total">5,100.99</span>
+            </div>
+          </div>
         </Grid>
+      </Grid>
+      <Grid container>
+        <Grid size={1} />
+        <Grid size={6} className="order__transfer_info">asd</Grid>
+        <Grid size={4} className="order__address">Address: UQCI7d2SQ9ili8W41vpsIuaMyVmBMQcsBxEcM01UE5aL-j5l</Grid>
       </Grid>
     </Container>
   );
