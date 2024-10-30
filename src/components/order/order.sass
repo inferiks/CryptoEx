@@ -1,23 +1,26 @@
-@import '../../variables.sass'
-@import '../../mixins.sass'
+@use '../../variables'
+@use '../../mixins'
 
 .order
+
+  &__button
+    background-color: black
 
   &__window
     display: flex
     justify-content: space-between
     margin: 20px auto
     text-align: center
-    background-color: $green-arctic
+    background-color: variables.$green-arctic
     border-radius: 30px
     padding: 40px 40px
     max-width: 100%
     width: 600px
     align-items: center
-    @include window-style
+    @include mixins.window-style
 
     &_info
-      background-color: $green-spring
+      background-color: variables.$green-spring
 
   &__info
     text-align: left
@@ -36,15 +39,15 @@
 
   &__address
     margin-top: 20px
-    background-color: $green-spring
+    background-color: variables.$green-spring
     border-radius: 30px
     padding: 30px 40px
     word-break: break-all
-    @include window-style
+    @include mixins.window-style
 
   &__transfer_info
     margin-top: 20px
-    background-color: $green-arctic
+    background-color: variables.$green-arctic
     border-radius: 30px
     padding: 30px 40px
-    @include window-style
+    @include mixins.window-style
