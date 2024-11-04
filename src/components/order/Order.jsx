@@ -1,4 +1,4 @@
-import { Container, Grid2 as Grid } from "@mui/material";
+import { Button, ButtonGroup, Container, Grid2 as Grid } from "@mui/material";
 import './order.sass';
 import { useEffect, useState } from "react";
 import SwapIcon from "../common/SwapIcon";
@@ -76,6 +76,10 @@ const Order = () => {
           <span>UQCI7d2SQ9ili8W41vpsIuaMyVmBMQcsBxEcM01UE5aL-j5l</span>
         </Grid>
       </Grid>
+      <ButtonGroup disableRipple sx={{ display: 'flex', margin: '50px auto', width: '500px', height: '60px' }}>
+        <Button color='error' sx={{ width: '50%', borderRadius: '30px' }} >Cancel</Button>
+        <Button variant="contained" sx={{ bgcolor: '#21ba72b3', color: '#fff', width: '50%', borderRadius: '30px' }}>I paid order</Button>
+      </ButtonGroup>
     </Container>
   );
 };

@@ -3,14 +3,11 @@ import { Grid2 as Grid, TextField } from "@mui/material";
 
 import './orderCurrency.sass'
 
-const OrderCurrency = ({ title }) => {
+const OrderCurrency = ({ title, currencies, currency }) => {
   const [selectedCrypto, setSelectedCrypto] = useState(null);
   const [selectedFiat, setSelectedFiat] = useState(null);
   const [price, setPrice] = useState(5.38)
 
-  const cryptoCurrencies = ["BTC", "ETH", "USDT (TRC20)", "USDT (ERC20)", "TON"];
-  const fiatCurrencies = ["RUB", "USD", "EUR"];
-  const currency = 5.38
 
   const handleCryptoClick = (currency) => {
     setSelectedCrypto(currency);
@@ -37,7 +34,7 @@ const OrderCurrency = ({ title }) => {
           <div className="exchange-order__list">
             <h3>Select value</h3>
             <ul>
-              {cryptoCurrencies.map((currency, index) => (
+              {currencies.map((currency, index) => (
                 <li
                   key={index}
                   className={selectedCrypto === currency ? "exchange-order__item_active" : "exchange-order__item"}

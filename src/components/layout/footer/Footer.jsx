@@ -1,4 +1,5 @@
-import { Container, Link, Grid2 as Grid, Box } from "@mui/material";
+import { Container, Link as MUILink, Grid2 as Grid, Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -11,16 +12,16 @@ export default function Footer() {
           <Grid size={{ xs: 4 }}>
             <h2 style={{ position: 'sticky', top: 0 }}>Links</h2>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '15px' }}>
-              <Link href='#' underline="hover" color='black'>Buy crypto</Link>
-              <Link href='#' underline="hover" color='black'>Contact us</Link>
-              <Link href='#' underline="hover" color='black'>Something else</Link>
+              <MUILink component={Link} to='#' underline="hover" color='black'>Buy crypto</MUILink>
+              <MUILink component={Link} to='#' underline="hover" color='black'>Contact us</MUILink>
+              <MUILink component={Link} to='#' underline="hover" color='black'>Something else</MUILink>
             </Box>
           </Grid>
           <Grid size={{ xs: 4 }}>
             <h2 style={{ position: 'sticky', top: 0 }}>Information</h2>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '15px' }}>
-              <Link href='#' underline="hover" color='black'>Privacy policy</Link>
-              <Link href='#' underline="hover" color='black'>AML/KYC policy</Link>
+              <MUILink component={Link} to='#' underline="hover" color='black'>Privacy policy</MUILink>
+              <MUILink component={Link} to='/aml-kyc' underline="hover" color='black'>AML/KYC policy</MUILink>
             </Box>
           </Grid>
         </Grid>

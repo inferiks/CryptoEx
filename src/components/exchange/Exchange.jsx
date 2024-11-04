@@ -5,14 +5,19 @@ import { Link } from "react-router-dom";
 import SwapIcon from "../common/SwapIcon";
 
 export default function Exchange() {
+  const cryptoCurrencies = ["BTC", "ETH", "USDT (TRC20)", "USDT (ERC20)", "TON", "Z-cash", "LTC", "BUSD"];
+  const fiatCurrencies = ["RUB", "USD", "EUR"];
+
+  const currency = 5.38
+
   return (
     <Grid className="exchange" container >
 
-      <OrderCurrency title="You give" />
+      <OrderCurrency title="You give" currencies={cryptoCurrencies} currency={currency} />
 
       <SwapIcon isClickable={true} onClick={() => console.log('swap')} />
 
-      <OrderCurrency title="You recieve" />
+      <OrderCurrency title="You recieve" currencies={fiatCurrencies} currency={currency} />
 
       <Grid className="exchange-final" size={12} style={{ 'margin': '20px auto' }} >
         <h2>Confirm order</h2>
@@ -52,7 +57,7 @@ export default function Exchange() {
               <div>
                 <span>You give:</span>
                 <div className="exchange-final__result">
-                  <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" style={{ 'width': '25px' }} />
+                  <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" style={{ 'width': '25px', }} />
                   <span>USDT TRC20</span>
                 </div>
               </div>
@@ -63,7 +68,7 @@ export default function Exchange() {
                   <span>USDT TRC20</span>
                 </div>
               </div>
-              <Link to="/order">
+              <Link to="/order" >
                 <Button variant="contained" color="success" disableRipple sx={{ width: '10vw', margin: '0 auto' }}>Proceed to order</Button>
               </Link>
             </div>
