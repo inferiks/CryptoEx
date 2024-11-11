@@ -5,19 +5,24 @@ import { Link } from "react-router-dom";
 import SwapIcon from "../common/SwapIcon";
 
 export default function Exchange() {
-  const cryptoCurrencies = ["BTC", "ETH", "USDT (TRC20)", "USDT (ERC20)", "TON", "Z-cash", "LTC", "BUSD"];
-  const fiatCurrencies = ["RUB", "USD", "EUR"];
+  // const cryptoCurrencies = ["BTC", "ETH", "USDT (TRC20)", "USDT (ERC20)", "TON", "Z-cash", "LTC", "BUSD"];
+  // const fiatCurrencies = ["RUB", "USD", "EUR"];
 
-  const currency = 5.38
+  // const currency = 5.38
+
 
   return (
     <Grid className="exchange" container >
 
-      <OrderCurrency title="You give" currencies={cryptoCurrencies} currency={currency} />
+      {/* <OrderCurrency title="You give" currencies={cryptoCurrencies} currency={currency} /> */}
+
+      <OrderCurrency fetchURL="http://localhost:3001" currencyType="fiatCurrencies" title="Fiat currency" />
 
       <SwapIcon isClickable={true} onClick={() => console.log('swap')} />
 
-      <OrderCurrency title="You recieve" currencies={fiatCurrencies} currency={currency} />
+      <OrderCurrency fetchURL={'http://localhost:3001'} currencyType={'cryptoCurrencies'} title="Crypto currency" />
+
+      {/* <OrderCurrency title="You recieve" currencies={fiatCurrencies} currency={currency} /> */}
 
       <Grid className="exchange-final" size={12} style={{ 'margin': '20px auto' }} >
         <h2>Confirm order</h2>

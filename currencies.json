@@ -1,0 +1,84 @@
+{
+  "fiatCurrencies": [
+    {
+      "id": 1,
+      "name": "RUB",
+      "symbol": "₽",
+      "logo": "link",
+      "price": 1
+    },
+    {
+      "id": 2,
+      "name": "USD",
+      "symbol": "$",
+      "logo": "link",
+      "price": 97.5
+    },
+    {
+      "id": 3,
+      "name": "EUR",
+      "symbol": "€",
+      "logo": "link",
+      "price": 105.2
+    },
+    {
+      "id": 4,
+      "name": "GEL",
+      "symbol": "ლ",
+      "logo": "link",
+      "price": 35.1
+    },
+    {
+      "id": 5,
+      "name": "KZT",
+      "symbol": "₸",
+      "logo": "link",
+      "price": 0.2
+    },
+    {
+      "id": 6,
+      "name": "BYN",
+      "symbol": "Br",
+      "logo": "link",
+      "price": 31.21
+    }
+  ],
+  "cryptoCurrencies": [
+    {
+      "id": 1,
+      "name": "BTC",
+      "symbol": "₿",
+      "price": 100
+    },
+    {
+      "id": 2,
+      "name": "ETH",
+      "symbol": "Ξ",
+      "price": 100
+    },
+    {
+      "id": 3,
+      "name": "USDT (ERC20)",
+      "symbol": "₮",
+      "price": 100
+    },
+    {
+      "id": 4,
+      "name": "USDT (TRC20)",
+      "symbol": "₮",
+      "price": 100
+    },
+    {
+      "id": 5,
+      "name": "USDT (BEP20)",
+      "symbol": "₮",
+      "price": 100
+    },
+    {
+      "id": 6,
+      "name": "TON",
+      "symbol": "TON",
+      "price": 100
+    }
+  ]
+}

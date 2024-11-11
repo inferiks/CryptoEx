@@ -1,30 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid2 as Grid, TextField } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 
 import './orderCurrency.sass'
 
-const OrderCurrency = ({ title, currencies, currency }) => {
-  const [selectedCrypto, setSelectedCrypto] = useState(null);
-  const [selectedFiat, setSelectedFiat] = useState(null);
-  const [price, setPrice] = useState(5.38)
+const OrderCurrency = ({ fetchURL, currencyType, title }) => {
+  const [selectedValue, setSelectedValue] = useState(null);
+  const [dataArray, setDataArray] = useState([]);
+  const [price, setPrice] = useState('Select currency');
+  const [amount, setAmount] = useState(1);
+  const [currentSymbol, setCurrentSymbol] = useState(null)
 
-
-  const handleCryptoClick = (currency) => {
-    setSelectedCrypto(currency);
-  };
-
-  const handleFiatClick = (currency) => {
-    setSelectedFiat(currency);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const getCurrency = async (url, currencyType) => {
+    try {
+      const res = await fetch(`${url}/${currencyType}`, { method: "GET" });
+      if (!res.ok) {
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+      }
+      const data = await res.json();
+      setDataArray(data);
+    } catch (err) {
+      console.error(err);
+    }
   }
+
+  useEffect(() => {
+    getCurrency(fetchURL, currencyType);
+  }, []);
+
+  const handleCryptoClick = (currency, price, symbol) => {
+    setSelectedValue(currency);
+    setPrice(price)
+    setCurrentSymbol(symbol)
+  };
 
   const handleInputChange = (e) => {
-    const price = (e.target.value * currency).toFixed(2)
-    setPrice(price)
+    const newAmount = parseFloat(e.target.value) || 0
+    setAmount(newAmount)
   }
+
+  const totalPrice = (price * amount).toFixed(2)
+
+  const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }))
 
   return (
     <Grid className="exchange-order" size={{ xs: 5 }}>
@@ -34,12 +51,12 @@ const OrderCurrency = ({ title, currencies, currency }) => {
           <div className="exchange-order__list">
             <h3>Select value</h3>
             <ul>
-              {currencies.map((currency, index) => (
+              {currenciesWithKeys.map(({ name, id, price, symbol }) => (
                 <li
-                  key={index}
-                  className={selectedCrypto === currency ? "exchange-order__item_active" : "exchange-order__item"}
-                  onClick={() => handleCryptoClick(currency)}>
-                  {currency}
+                  key={id}
+                  className={selectedValue === name ? "exchange-order__item_active" : "exchange-order__item"}
+                  onClick={() => handleCryptoClick(name, price, symbol)}>
+                  {name}
                 </li>
               ))}
             </ul>
@@ -52,6 +69,7 @@ const OrderCurrency = ({ title, currencies, currency }) => {
             name="amount"
             label="Enter amount"
             autoComplete="off"
+            placeholder={amount}
             slotProps={{
               inputLabel: {
                 shrink: true,
@@ -59,7 +77,7 @@ const OrderCurrency = ({ title, currencies, currency }) => {
             }}
             sx={{ maxWidth: "150px", marginTop: "10px" }}
             onChange={handleInputChange} ></TextField>
-          <div className="exchange-order__price">Price: <b>${price}</b></div>
+          <div className="exchange-order__price">Price: {currentSymbol} <b>{isNaN(totalPrice) ? 'Select currency' : totalPrice}</b></div>
         </div>
       </div>
     </Grid >
