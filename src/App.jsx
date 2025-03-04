@@ -5,8 +5,10 @@ import { Home } from './pages/home/Home'
 import Header from "./components/layout/header/Header"
 import Footer from "./components/layout/footer/Footer"
 import Order from './components/order/Order'
+import Reviews from './components/reviews/Reviews'
 import NoMatch from './pages/noMatch/NoMatch'
 import AmlKyc from './pages/amlKyc/AmlKyc'
+import Privacy from './pages/privacy/Privacy'
 
 function App() {
 
@@ -26,7 +28,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/reviews" element={<Reviews />} />
             <Route path="/aml-kyc" element={<AmlKyc />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
           <Footer />

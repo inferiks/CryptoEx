@@ -10,7 +10,6 @@ export default function Exchange() {
 
   // const currency = 5.38
 
-
   return (
     <Grid className="exchange" container >
 

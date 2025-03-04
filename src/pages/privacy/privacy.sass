@@ -1,0 +1,36 @@
+@use "../../mixins"
+
+.privacy
+  padding: 40px
+  text-align: center
+  background-color: rgba(255, 255, 255, 0.75)
+  @include mixins.window-style
+  text-align: left
+  & h2
+    font-size: 2rem
+    margin-bottom: 20px
+    text-align: center
+  &__item
+    font-size: 1.5rem
+    margin-top: 1rem
+    &_description
+      margin-top: 1rem
+  &__container
+    margin-top: 1rem
+  &__subitem
+    margin-left: 1.5rem
+  & ul
+    font-weight: bold
+    & li
+      font-weight: normal
+  &__table
+    width: 100%
+    border-collapse: collapse
+    margin-top: 1rem
+    & li
+      list-style-type: '─ '
+      margin-left: 1rem
+    & th, td
+      border: 1px solid black
+      padding: 1rem
+      text-align: left

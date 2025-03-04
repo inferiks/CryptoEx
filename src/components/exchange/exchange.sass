@@ -1,11 +1,15 @@
+@use '../../variables'
+@use '../../mixins'
+
 .exchange
   padding-top: 100px
   display: flex
   justify-content: space-between
   align-items: center
   &-final
-    background: rgba(129, 239, 125, 0.2)
-    border: 2px solid grey
+    background: variables.$green-spring
+    @include mixins.window-style
+    // border: 2px solid grey
     min-height: 400px
     border-radius: 50px
     text-align: center

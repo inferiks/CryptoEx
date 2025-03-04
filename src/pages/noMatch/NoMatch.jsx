@@ -3,7 +3,6 @@ import notFound from "../../assets/notFound.svg"
 import { Link } from "react-router-dom"
 import './noMatch.sass'
 
-
 const NoMatch = () => {
   return (
     <Grid container>

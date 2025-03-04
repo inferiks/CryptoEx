@@ -1,7 +1,11 @@
+@use '../../variables'
+@use '../../mixins'
+
 .exchange-order
-  background: rgba(129, 239, 125, 0.2)
+  background: variables.$green-arctic
+  @include mixins.window-style
   padding: 25px
-  border: 2px solid grey
+  // border: 2px solid grey
   max-height: 500px
   border-radius: 50px
   text-align: center
