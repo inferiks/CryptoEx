@@ -20,7 +20,7 @@ const Order = () => {
   }, []);
 
   return (
-    <Container sx={{ paddingTop: "100px" }}>
+    <Container>
       <Grid container>
         <Grid size={10} className="order__window order__window_info">
           <div className="order__date">

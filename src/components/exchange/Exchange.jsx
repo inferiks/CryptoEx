@@ -1,27 +1,42 @@
 import { Grid2 as Grid, Checkbox, FormControlLabel, TextField, Button } from "@mui/material"
+import { useState } from "react"
 import OrderCurrency from "./OrderCurrency";
 import './exchange.sass'
 import { Link } from "react-router-dom";
 import SwapIcon from "../common/SwapIcon";
 
 export default function Exchange() {
-  // const cryptoCurrencies = ["BTC", "ETH", "USDT (TRC20)", "USDT (ERC20)", "TON", "Z-cash", "LTC", "BUSD"];
-  // const fiatCurrencies = ["RUB", "USD", "EUR"];
+  const [firstComponentType, setFirstComponentType] = useState(null);
+  const [secondComponentType, setSecondComponentType] = useState(null);
 
-  // const currency = 5.38
+  const handleFirstComponentChange = (type) => {
+    setFirstComponentType(type);
+    setSecondComponentType(type === 'fiat' ? 'crypto' : 'fiat');
+  };
+
+  const handleSecondComponentChange = (type) => {
+    setSecondComponentType(type);
+    setFirstComponentType(type === 'fiat' ? 'crypto' : 'fiat');
+  };
 
   return (
     <Grid className="exchange" container >
 
-      {/* <OrderCurrency title="You give" currencies={cryptoCurrencies} currency={currency} /> */}
-
-      <OrderCurrency fetchURL="http://localhost:3001" currencyType="fiatCurrencies" title="Fiat currency" />
+      <OrderCurrency
+        fetchURL='http://localhost:3001'
+        title="You give"
+        linkedComponent={secondComponentType}
+        onCurrencyTypeChange={handleFirstComponentChange}
+      />
 
       <SwapIcon isClickable={true} onClick={() => console.log('swap')} />
 
-      <OrderCurrency fetchURL={'http://localhost:3001'} currencyType="cryptoCurrencies" title="Crypto currency" />
-
-      {/* <OrderCurrency title="You recieve" currencies={fiatCurrencies} currency={currency} /> */}
+      <OrderCurrency
+        fetchURL='http://localhost:3001'
+        title="You receive"
+        linkedComponent={firstComponentType}
+        onCurrencyTypeChange={handleSecondComponentChange}
+      />
 
       <Grid className="exchange-final" size={12} >
         <h2>Confirm order</h2>
@@ -73,7 +88,7 @@ export default function Exchange() {
                 </div>
               </div>
               <Link to="/order" >
-                <Button variant="contained" color="success" disableRipple sx={{ width: '10vw', margin: '0 auto' }}>Proceed to order</Button>
+                <Button variant="contained" color="success" disableRipple sx={{ width: '12rem', margin: '0 auto' }}>Proceed to order</Button>
               </Link>
             </div>
           </div>

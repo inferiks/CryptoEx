@@ -25,15 +25,17 @@ function App() {
       <ThemeProvider theme={theme}>
         <div className="app">
           <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="/aml-kyc" element={<AmlKyc />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
-          <Footer />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/aml-kyc" element={<AmlKyc />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="*" element={<NoMatch />} />
+            </Routes>
+            <Footer />
+          </main>
         </div>
       </ThemeProvider>
     </Router>

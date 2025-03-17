@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { motion, } from "motion/react"
+import { motion } from "motion/react";
 import { Grid2 as Grid, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
-import './orderCurrency.sass'
+import './orderCurrency.sass';
 
-const OrderCurrency = ({ fetchURL, title }) => {
+const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange }) => {
   const [selectedValue, setSelectedValue] = useState(null);
   const [dataArray, setDataArray] = useState([]);
   const [price, setPrice] = useState('Select currency');
   const [amount, setAmount] = useState(1);
   const [currency, setCurrency] = useState(null);
   const [showCurrencies, setShowCurrencies] = useState(null);
-  const [currentSymbol, setCurrentSymbol] = useState(null)
+  const [currentSymbol, setCurrentSymbol] = useState(null);
 
   const getCurrency = async (url, currencyType) => {
     try {
@@ -28,50 +28,74 @@ const OrderCurrency = ({ fetchURL, title }) => {
   }
 
   useEffect(() => {
+    // Initial data loading if needed
     // getCurrency(fetchURL, 'fiatCurrencies');
     // getCurrency(fetchURL, 'cryptoCurrencies');
   }, []);
 
   const handleCryptoClick = (currency, price, symbol) => {
     setSelectedValue(currency);
-    setPrice(price)
-    setCurrentSymbol(symbol)
+    setPrice(price);
+    setCurrentSymbol(symbol);
   };
 
   const handleInputChange = (e) => {
-    const newAmount = parseFloat(e.target.value) || 0
-    setAmount(newAmount)
+    const newAmount = parseFloat(e.target.value) || 0;
+    setAmount(newAmount);
   }
 
-  const totalPrice = (price * amount).toFixed(2)
+  const handleCurrencyTypeChange = (type) => {
+    setCurrency(type);
+    getCurrency(fetchURL, type === 'fiat' ? 'fiatCurrencies' : 'cryptoCurrencies');
+    setShowCurrencies(true);
 
-  const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }))
+    // Notify parent component about the currency type change
+    if (onCurrencyTypeChange) {
+      onCurrencyTypeChange(type);
+    }
+  };
+
+  // Effect to update currency type when linkedComponent changes
+  useEffect(() => {
+    if (linkedComponent) {
+      // Set the opposite currency type
+      const oppositeType = linkedComponent === 'fiat' ? 'crypto' : 'fiat';
+
+      // Only update if it's different from current value
+      if (currency !== oppositeType) {
+        setCurrency(oppositeType);
+
+        // Explicitly fetch data for the new currency type
+        const endpoint = oppositeType === 'fiat' ? 'fiatCurrencies' : 'cryptoCurrencies';
+        getCurrency(fetchURL, endpoint);
+
+        // Show currencies dropdown
+        setShowCurrencies(true);
+      }
+    }
+  }, [linkedComponent, fetchURL, currency]);
+
+  const totalPrice = (price * amount).toFixed(2);
+
+  const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }));
 
   return (
     <Grid className="exchange-order" size={{ xs: 5 }}>
+      <h2>{title}</h2>
+      <div className="exchange-order__select">
+        <motion.button
+          className={`exchange-order__select_type ${currency === 'fiat' ? 'exchange-order__select_type-active' : ''}`}
+          onClick={() => handleCurrencyTypeChange('fiat')}>
+          Fiat
+        </motion.button>
+        <button
+          className={`exchange-order__select_type ${currency === 'crypto' ? 'exchange-order__select_type-active' : ''}`}
+          onClick={() => handleCurrencyTypeChange('crypto')}>
+          Crypto
+        </button>
+      </div>
       <div className="exchange-order__currency" style={{ margin: '20px 0' }}>
         <div className="exchange-order__crypto">
-          <h3>Select currency type</h3>
-          <div className="exchange-order__select">
-            <motion.button
-              className={`exchange-order__select_type ${currency === 'fiat' ? 'exchange-order__select_type-active' : ''}`}
-              onClick={() => {
-                setCurrency('fiat')
-                getCurrency(fetchURL, 'fiatCurrencies')
-                setShowCurrencies(true)
-              }}>
-              Fiat
-            </motion.button>
-            <button
-              className={`exchange-order__select_type ${currency === 'crypto' ? 'exchange-order__select_type-active' : ''}`}
-              onClick={() => {
-                setCurrency('crypto')
-                getCurrency(fetchURL, 'cryptoCurrencies')
-                setShowCurrencies(true)
-              }}>
-              Crypto
-            </button>
-          </div>
           <motion.div
             className={showCurrencies ? "exchange-order__list exchange-order__list_active" : "exchange-order__list"}
             animate={{ height: showCurrencies ? "20rem" : 0, opacity: 1 }}
@@ -101,19 +125,19 @@ const OrderCurrency = ({ fetchURL, title }) => {
             name="amount"
             label="Enter amount"
             autoComplete="off"
-            placeholder={amount}
+            placeholder={amount.toString()}
             slotProps={{
               inputLabel: {
                 shrink: true,
               }
             }}
             sx={{ maxWidth: "150px", marginTop: "10px" }}
-            onChange={handleInputChange} ></TextField>
+            onChange={handleInputChange} />
           <div className="exchange-order__price">Price: {currentSymbol} <b>{isNaN(totalPrice) ? 'Select currency' : totalPrice}</b></div>
         </div>
       </div>
-    </Grid >
-  )
-}
+    </Grid>
+  );
+};
 
-export default OrderCurrency
+export default OrderCurrency;

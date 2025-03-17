@@ -2,14 +2,12 @@
 @use '../../mixins'
 
 .exchange
-  padding-top: 100px
   display: flex
   justify-content: space-between
   align-items: center
   &-final
     background: variables.$green-spring
     @include mixins.window-style
-    // border: 2px solid grey
     min-height: 400px
     border-radius: 50px
     text-align: center
@@ -24,8 +22,6 @@
 
     &__confirm
       background-color: rgba(81, 122, 227, 0)
-      border-radius: 10px
-      border: 2px solid grey
       min-height: 100%
       min-width: 80%
       margin: 0 auto
