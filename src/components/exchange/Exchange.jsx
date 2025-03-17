@@ -19,11 +19,11 @@ export default function Exchange() {
 
       <SwapIcon isClickable={true} onClick={() => console.log('swap')} />
 
-      <OrderCurrency fetchURL={'http://localhost:3001'} currencyType={'cryptoCurrencies'} title="Crypto currency" />
+      <OrderCurrency fetchURL={'http://localhost:3001'} currencyType="cryptoCurrencies" title="Crypto currency" />
 
       {/* <OrderCurrency title="You recieve" currencies={fiatCurrencies} currency={currency} /> */}
 
-      <Grid className="exchange-final" size={12} style={{ 'margin': '20px auto' }} >
+      <Grid className="exchange-final" size={12} >
         <h2>Confirm order</h2>
         <div className="exchange-final__container">
           <div className="exchange-final__inputs">
@@ -33,7 +33,7 @@ export default function Exchange() {
                 name="email"
                 label="Enter your email"
                 color="black"
-                sx={{ minWidth: 'min(25rem)' }}
+                sx={{ maxWidth: '25rem', width: '100%' }}
               ></TextField>
             </div>
 
@@ -44,7 +44,7 @@ export default function Exchange() {
                 name="address"
                 label="Enter your wallet address"
                 color="black"
-                sx={{ minWidth: 'min(25rem)' }}
+                sx={{ maxWidth: '25rem', width: '100%' }}
               ></TextField>
             </div>
 

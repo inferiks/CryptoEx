@@ -11,7 +11,6 @@ const Reviews = () => {
       <h2 className="reviews__title">О нас говорят:</h2>
       <Swiper
         slidesPerView={3}
-        centeredSlides={true}
         spaceBetween={30}
         navigation={true}
         modules={[Navigation]}

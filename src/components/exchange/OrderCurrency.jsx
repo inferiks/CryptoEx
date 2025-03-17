@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { motion, } from "motion/react"
 import { Grid2 as Grid, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 import './orderCurrency.sass'
 
-const OrderCurrency = ({ fetchURL, currencyType, title }) => {
+const OrderCurrency = ({ fetchURL, title }) => {
   const [selectedValue, setSelectedValue] = useState(null);
   const [dataArray, setDataArray] = useState([]);
   const [price, setPrice] = useState('Select currency');
   const [amount, setAmount] = useState(1);
+  const [currency, setCurrency] = useState(null);
+  const [showCurrencies, setShowCurrencies] = useState(null);
   const [currentSymbol, setCurrentSymbol] = useState(null)
 
   const getCurrency = async (url, currencyType) => {
@@ -25,7 +28,8 @@ const OrderCurrency = ({ fetchURL, currencyType, title }) => {
   }
 
   useEffect(() => {
-    getCurrency(fetchURL, currencyType);
+    // getCurrency(fetchURL, 'fiatCurrencies');
+    // getCurrency(fetchURL, 'cryptoCurrencies');
   }, []);
 
   const handleCryptoClick = (currency, price, symbol) => {
@@ -45,10 +49,38 @@ const OrderCurrency = ({ fetchURL, currencyType, title }) => {
 
   return (
     <Grid className="exchange-order" size={{ xs: 5 }}>
-      <h2 className="exchange-order__title">{title}</h2>
       <div className="exchange-order__currency" style={{ margin: '20px 0' }}>
         <div className="exchange-order__crypto">
-          <div className="exchange-order__list">
+          <h3>Select currency type</h3>
+          <div className="exchange-order__select">
+            <motion.button
+              className={`exchange-order__select_type ${currency === 'fiat' ? 'exchange-order__select_type-active' : ''}`}
+              onClick={() => {
+                setCurrency('fiat')
+                getCurrency(fetchURL, 'fiatCurrencies')
+                setShowCurrencies(true)
+              }}>
+              Fiat
+            </motion.button>
+            <button
+              className={`exchange-order__select_type ${currency === 'crypto' ? 'exchange-order__select_type-active' : ''}`}
+              onClick={() => {
+                setCurrency('crypto')
+                getCurrency(fetchURL, 'cryptoCurrencies')
+                setShowCurrencies(true)
+              }}>
+              Crypto
+            </button>
+          </div>
+          <motion.div
+            className={showCurrencies ? "exchange-order__list exchange-order__list_active" : "exchange-order__list"}
+            animate={{ height: showCurrencies ? "20rem" : 0, opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{
+              duration: 0.8,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
             <h3>Select value</h3>
             <ul>
               {currenciesWithKeys.map(({ name, id, price, symbol }) => (
@@ -60,7 +92,7 @@ const OrderCurrency = ({ fetchURL, currencyType, title }) => {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
           <TextField
             type="number"
             variant="standard"

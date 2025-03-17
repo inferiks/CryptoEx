@@ -5,10 +5,22 @@
   background: variables.$green-arctic
   @include mixins.window-style
   padding: 25px
-  // border: 2px solid grey
-  max-height: 500px
+  max-height: 700px
   border-radius: 50px
   text-align: center
+
+  &__select
+    display: flex
+    justify-content: space-around
+    margin: 10px 0
+
+    &_type
+      display: inline
+      background-color: transparent
+      border: none
+
+      &-active
+        border-bottom: 2px solid white
 
   &__price
     white-space: nowrap
@@ -26,11 +38,14 @@
   &__list
     overflow-y: auto
     overflow-x: hidden
-    height: 30vh
-    ul
-      list-style-type: none
-      height: 200px
+    &_active
+      display: block
 
+    ul
+      display: flex
+      flex-direction: column
+      align-items: center
+      list-style-type: none
     li
       border: 1px solid gray
       border-radius: 10px
