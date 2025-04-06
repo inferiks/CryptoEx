@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer>
-      <Container sx={{ marginTop: '50px' }}>
+      <Container sx={{ marginTop: '10rem' }}>
         <Grid container alignItems='flex-start' sx={{ paddingBottom: '40px' }}>
           <Grid size={{ xs: 2 }} sx={{ margin: '0 auto' }}>
             <Link to="/">

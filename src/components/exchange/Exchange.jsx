@@ -29,7 +29,11 @@ export default function Exchange() {
         onCurrencyTypeChange={handleFirstComponentChange}
       />
 
-      <SwapIcon isClickable={true} onClick={() => console.log('swap')} />
+      <SwapIcon isClickable={true} onClick={() => {
+        const temp = firstComponentType;
+        handleFirstComponentChange(secondComponentType);
+        handleSecondComponentChange(temp);
+      }} />
 
       <OrderCurrency
         fetchURL='http://localhost:3001'

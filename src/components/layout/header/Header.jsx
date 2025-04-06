@@ -15,7 +15,7 @@ const Header = () => {
 
       <div className="header-buttons">
         <MUILink href="/" underline="none" className="header-buttons__el" color="black">Buy crypto</MUILink>
-        <MUILink href="/about-us" underline="none" className="header-buttons__el" color="black">About us</MUILink>
+        <MUILink href="/aboutUs" underline="none" className="header-buttons__el" color="black">About us</MUILink>
         <MUILink href="/reviews" underline="none" className="header-buttons__el" color="black">Reviews</MUILink>
       </div>
       <a href="https://t.me" target="_blank" className="header-contacts">

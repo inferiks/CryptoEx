@@ -9,6 +9,7 @@ import Reviews from './components/reviews/Reviews'
 import NoMatch from './pages/noMatch/NoMatch'
 import AmlKyc from './pages/amlKyc/AmlKyc'
 import Privacy from './pages/privacy/Privacy'
+import AboutUs from './pages/aboutUs/AboutUs'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/aml-kyc" element={<AmlKyc />} />
               <Route path="/privacy" element={<Privacy />} />
+              <Route path="/aboutUs" element={<AboutUs />} />
               <Route path="*" element={<NoMatch />} />
             </Routes>
             <Footer />

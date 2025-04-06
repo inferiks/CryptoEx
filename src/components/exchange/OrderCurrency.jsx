@@ -2,17 +2,21 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Grid2 as Grid, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-
+import { useBinance } from "../../hooks/binance.hook";
 import './orderCurrency.sass';
 
-const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange }) => {
+const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange, selectedFiatCurrency }) => {
   const [selectedValue, setSelectedValue] = useState(null);
   const [dataArray, setDataArray] = useState([]);
-  const [price, setPrice] = useState('Select currency');
   const [amount, setAmount] = useState(1);
   const [currency, setCurrency] = useState(null);
   const [showCurrencies, setShowCurrencies] = useState(null);
   const [currentSymbol, setCurrentSymbol] = useState(null);
+
+  const { price: binancePrice, loading, error } = useBinance(
+    currency === 'crypto' ? selectedValue : null,
+    currency === 'fiat' ? selectedValue : selectedFiatCurrency
+  );
 
   const getCurrency = async (url, currencyType) => {
     try {
@@ -27,15 +31,34 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange 
     }
   }
 
-  useEffect(() => {
-    // Initial data loading if needed
-    // getCurrency(fetchURL, 'fiatCurrencies');
-    // getCurrency(fetchURL, 'cryptoCurrencies');
-  }, []);
+  const fetchUsdToRub = async () => {
+    const response = await fetch("https://www.cbr-xml-daily.ru/daily_json.js");
+    const data = await response.json();
+    return parseFloat(data.Valute.USD.Value);
+  };
 
-  const handleCryptoClick = (currency, price, symbol) => {
+  useEffect(() => {
+    if (fetchURL) {
+      getCurrency(fetchURL, 'fiatCurrencies');
+      fetchUsdToRub();
+    }
+  }, [fetchURL]);
+
+  useEffect(() => {
+    if (linkedComponent) {
+      const oppositeType = linkedComponent === 'fiat' ? 'crypto' : 'fiat';
+
+      if (currency !== oppositeType) {
+        setCurrency(oppositeType);
+        const endpoint = oppositeType === 'fiat' ? 'fiatCurrencies' : 'cryptoCurrencies';
+        getCurrency(fetchURL, endpoint);
+        setShowCurrencies(true);
+      }
+    }
+  }, [linkedComponent, fetchURL, currency]);
+
+  const handleCryptoClick = (currency, symbol) => {
     setSelectedValue(currency);
-    setPrice(price);
     setCurrentSymbol(symbol);
   };
 
@@ -49,33 +72,12 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange 
     getCurrency(fetchURL, type === 'fiat' ? 'fiatCurrencies' : 'cryptoCurrencies');
     setShowCurrencies(true);
 
-    // Notify parent component about the currency type change
     if (onCurrencyTypeChange) {
       onCurrencyTypeChange(type);
     }
   };
 
-  // Effect to update currency type when linkedComponent changes
-  useEffect(() => {
-    if (linkedComponent) {
-      // Set the opposite currency type
-      const oppositeType = linkedComponent === 'fiat' ? 'crypto' : 'fiat';
-
-      // Only update if it's different from current value
-      if (currency !== oppositeType) {
-        setCurrency(oppositeType);
-
-        // Explicitly fetch data for the new currency type
-        const endpoint = oppositeType === 'fiat' ? 'fiatCurrencies' : 'cryptoCurrencies';
-        getCurrency(fetchURL, endpoint);
-
-        // Show currencies dropdown
-        setShowCurrencies(true);
-      }
-    }
-  }, [linkedComponent, fetchURL, currency]);
-
-  const totalPrice = (price * amount).toFixed(2);
+  const totalPrice = binancePrice ? (binancePrice * amount).toFixed(2) : 'Select currency';
 
   const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }));
 
@@ -88,11 +90,11 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange 
           onClick={() => handleCurrencyTypeChange('fiat')}>
           Fiat
         </motion.button>
-        <button
+        <motion.button
           className={`exchange-order__select_type ${currency === 'crypto' ? 'exchange-order__select_type-active' : ''}`}
           onClick={() => handleCurrencyTypeChange('crypto')}>
           Crypto
-        </button>
+        </motion.button>
       </div>
       <div className="exchange-order__currency" style={{ margin: '20px 0' }}>
         <div className="exchange-order__crypto">
@@ -107,13 +109,28 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange 
           >
             <h3>Select value</h3>
             <ul>
-              {currenciesWithKeys.map(({ name, id, price, symbol }) => (
-                <li
+              {currenciesWithKeys.map(({ name, id, symbol }) => (
+                <motion.li
                   key={id}
-                  className={selectedValue === name ? "exchange-order__item_active" : "exchange-order__item"}
-                  onClick={() => handleCryptoClick(name, price, symbol)}>
+                  initial={false}
+                  animate={{
+                    backgroundColor: selectedValue === name ? "rgba(255,128,0,0.85)" : "rgba(255,128,0,0.35)",
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeInOut",
+                    backgroundColor: { when: "beforeChildren" }
+                  }}
+                  whileHover={{
+                    backgroundColor: selectedValue === name ?
+                      "rgba(255,128,0,0.85)" :
+                      "rgba(255,128,0,0.5)",
+                  }}
+                  className={"exchange-order__item"}
+                  onClick={() => handleCryptoClick(name, symbol)}
+                  aria-label={name}>
                   {name}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
@@ -133,7 +150,9 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange 
             }}
             sx={{ maxWidth: "150px", marginTop: "10px" }}
             onChange={handleInputChange} />
-          <div className="exchange-order__price">Price: {currentSymbol} <b>{isNaN(totalPrice) ? 'Select currency' : totalPrice}</b></div>
+          <div className="exchange-order__price">
+            Price: {currentSymbol} <b>{loading ? 'Loading...' : error ? 'Error' : totalPrice}</b>
+          </div>
         </div>
       </div>
     </Grid>
