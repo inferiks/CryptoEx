@@ -8,6 +8,20 @@ import SwapIcon from "../common/SwapIcon";
 export default function Exchange() {
   const [firstComponentType, setFirstComponentType] = useState(null);
   const [secondComponentType, setSecondComponentType] = useState(null);
+  const [firstAmount, setFirstAmount] = useState(0);
+  const [secondAmount, setSecondAmount] = useState(0);
+  const [firstCurrency, setFirstCurrency] = useState(null);
+  const [secondCurrency, setSecondCurrency] = useState(null);
+
+  const handleFirstAmountChange = (amount, currency, selectedValue) => {
+    setFirstAmount(amount);
+    setFirstCurrency(selectedValue);
+  };
+
+  const handleSecondAmountChange = (amount, currency, selectedValue) => {
+    setSecondAmount(amount);
+    setSecondCurrency(selectedValue);
+  };
 
   const handleFirstComponentChange = (type) => {
     setFirstComponentType(type);
@@ -27,6 +41,10 @@ export default function Exchange() {
         title="You give"
         linkedComponent={secondComponentType}
         onCurrencyTypeChange={handleFirstComponentChange}
+        onAmountChange={handleFirstAmountChange}
+        otherComponentAmount={secondAmount}
+        otherComponentCurrency={secondCurrency}
+        isFirstComponent={true}
       />
 
       <SwapIcon isClickable={true} onClick={() => {
@@ -40,6 +58,10 @@ export default function Exchange() {
         title="You receive"
         linkedComponent={firstComponentType}
         onCurrencyTypeChange={handleSecondComponentChange}
+        onAmountChange={handleSecondAmountChange}
+        otherComponentAmount={firstAmount}
+        otherComponentCurrency={firstCurrency}
+        isFirstComponent={false}
       />
 
       <Grid className="exchange-final" size={12} >

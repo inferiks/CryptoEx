@@ -5,7 +5,17 @@ import { v4 as uuidv4 } from "uuid";
 import { useBinance } from "../../hooks/binance.hook";
 import './orderCurrency.sass';
 
-const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange, selectedFiatCurrency }) => {
+const OrderCurrency = ({
+  fetchURL,
+  title,
+  linkedComponent,
+  onCurrencyTypeChange,
+  selectedFiatCurrency,
+  onAmountChange,
+  otherComponentAmount,
+  otherComponentCurrency,
+  isFirstComponent
+}) => {
   const [selectedValue, setSelectedValue] = useState(null);
   const [dataArray, setDataArray] = useState([]);
   const [amount, setAmount] = useState(1);
@@ -45,17 +55,14 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange,
   }, [fetchURL]);
 
   useEffect(() => {
-    if (linkedComponent) {
+    if (linkedComponent && currency === null) {
       const oppositeType = linkedComponent === 'fiat' ? 'crypto' : 'fiat';
-
-      if (currency !== oppositeType) {
-        setCurrency(oppositeType);
-        const endpoint = oppositeType === 'fiat' ? 'fiatCurrencies' : 'cryptoCurrencies';
-        getCurrency(fetchURL, endpoint);
-        setShowCurrencies(true);
-      }
+      setCurrency(oppositeType);
+      const endpoint = oppositeType === 'fiat' ? 'fiatCurrencies' : 'cryptoCurrencies';
+      getCurrency(fetchURL, endpoint);
+      setShowCurrencies(true);
     }
-  }, [linkedComponent, fetchURL, currency]);
+  }, [linkedComponent, fetchURL]);
 
   const handleCryptoClick = (currency, symbol) => {
     setSelectedValue(currency);
@@ -65,7 +72,28 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange,
   const handleInputChange = (e) => {
     const newAmount = parseFloat(e.target.value) || 0;
     setAmount(newAmount);
+    if (onAmountChange) {
+      onAmountChange(newAmount, currency, selectedValue);
+    }
   }
+
+  useEffect(() => {
+    if (otherComponentAmount && otherComponentCurrency && selectedValue && binancePrice) {
+      if (isFirstComponent) {
+        // Если это первый компонент, пересчитываем сумму для второго
+        const newAmount = otherComponentAmount * binancePrice;
+        setAmount(newAmount);
+      } else {
+        // Если это второй компонент, пересчитываем сумму для первого
+        const newAmount = otherComponentAmount / binancePrice;
+        setAmount(newAmount);
+      }
+    }
+  }, [otherComponentAmount, otherComponentCurrency, binancePrice, isFirstComponent]);
+
+  const placeholderText = binancePrice ?
+    `1 ${selectedValue} = ${binancePrice.toFixed(2)} ${currency === 'crypto' ? 'USDT' : selectedFiatCurrency}` :
+    'Select currency first';
 
   const handleCurrencyTypeChange = (type) => {
     setCurrency(type);
@@ -140,9 +168,9 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange,
             className="exchange-order__amount"
             onWheel={(e) => e.target.blur()}
             name="amount"
-            label="Enter amount"
+            label={placeholderText}
             autoComplete="off"
-            placeholder={amount.toString()}
+            value={amount}
             slotProps={{
               inputLabel: {
                 shrink: true,
@@ -150,9 +178,6 @@ const OrderCurrency = ({ fetchURL, title, linkedComponent, onCurrencyTypeChange,
             }}
             sx={{ maxWidth: "150px", marginTop: "10px" }}
             onChange={handleInputChange} />
-          <div className="exchange-order__price">
-            Price: {currentSymbol} <b>{loading ? 'Loading...' : error ? 'Error' : totalPrice}</b>
-          </div>
         </div>
       </div>
     </Grid>

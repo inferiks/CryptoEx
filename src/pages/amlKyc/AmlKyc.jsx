@@ -3,7 +3,7 @@ import "./amlKyc.sass";
 
 const AmlKyc = () => {
   return (
-    <Container sx={{ paddingTop: 15 }}>
+    <Container>
       <Box className="aml-kyc">
         <Typography variant="h3" component="h1" align="center" gutterBottom>
           Политика AML/KYC

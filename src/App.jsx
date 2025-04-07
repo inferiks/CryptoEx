@@ -10,6 +10,7 @@ import NoMatch from './pages/noMatch/NoMatch'
 import AmlKyc from './pages/amlKyc/AmlKyc'
 import Privacy from './pages/privacy/Privacy'
 import AboutUs from './pages/aboutUs/AboutUs'
+import Cookies from './components/layout/cookies/Cookies'
 
 function App() {
 
@@ -21,11 +22,15 @@ function App() {
   })
 
   return (
-    <Router>
+    <Router
+      v7_startTransition={true}
+      v7_relativeSplatPath={true}
+    >
       <ScrollToTop />
       <ThemeProvider theme={theme}>
         <div className="app">
           <Header />
+          <Cookies />
           <main>
             <Routes>
               <Route path="/" element={<Home />} />

@@ -3,7 +3,7 @@ import "./privacy.sass";
 
 const Privacy = () => {
   return (
-    <Container sx={{ paddingTop: 15 }}>
+    <Container>
       <Box className="privacy">
         <h2>Политика в отношении обработки персональных данных</h2>
         <p className="privacy__item">1. Общие положения</p>
