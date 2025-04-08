@@ -92,9 +92,21 @@
   z-index: 10
   color: #1976d2
   font-size: 1.5rem
+  cursor: pointer
+  transition: transform 0.2s ease
+  &::after
+    content: ''
+  &:active
+    transform: translateY(-50%) translateX(-10px)
+    transition: transform 0.25s ease-in-out
 
 .swiper-button-prev
   left: -50px
 
 .swiper-button-next
   right: -50px
+
+.swiper-button-next
+  &:active
+    transform: translateY(-50%) translateX(10px)
+    transition: transform 0.1s ease

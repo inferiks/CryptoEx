@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { Container, Modal, Box, Button } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import "swiper/css";
 import "swiper/css/navigation";
 import "./reviews.sass"
@@ -78,7 +78,9 @@ const Reviews = () => {
           </Box>
         </Modal>
         <div className="reviews__slider-wrap">
-          <div className="swiper-button-prev custom-prev"></div>
+          <div className="swiper-button-prev custom-prev">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </div>
           <Swiper
             slidesPerView={3}
             spaceBetween={30}
