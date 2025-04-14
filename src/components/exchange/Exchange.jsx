@@ -1,9 +1,11 @@
 import { Grid2 as Grid, Checkbox, FormControlLabel, TextField, Button } from "@mui/material"
 import { useState } from "react"
-import OrderCurrency from "./OrderCurrency";
-import './exchange.sass'
 import { Link } from "react-router-dom";
 import SwapIcon from "../common/SwapIcon";
+import BlockBuy from "./BlockBuy";
+import BlockSell from "./BlockSell";
+
+import './exchange.sass'
 
 export default function Exchange() {
   const [firstComponentType, setFirstComponentType] = useState(null);
@@ -36,7 +38,7 @@ export default function Exchange() {
   return (
     <Grid className="exchange" container >
 
-      <OrderCurrency
+      <BlockBuy
         fetchURL='http://localhost:3001'
         title="You give"
         linkedComponent={secondComponentType}
@@ -53,7 +55,7 @@ export default function Exchange() {
         handleSecondComponentChange(temp);
       }} />
 
-      <OrderCurrency
+      <BlockSell
         fetchURL='http://localhost:3001'
         title="You receive"
         linkedComponent={firstComponentType}
@@ -102,14 +104,14 @@ export default function Exchange() {
               <div>
                 <span>You give:</span>
                 <div className="exchange-final__result">
-                  <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" style={{ 'width': '25px', }} />
+                  {/* <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" style={{ 'width': '25px', }} /> */}
                   <span>USDT TRC20</span>
                 </div>
               </div>
               <div>
                 <span>You receive:</span>
                 <div className="exchange-final__result">
-                  <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" style={{ 'width': '25px' }} />
+                  {/* <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" style={{ 'width': '25px' }} /> */}
                   <span>USDT TRC20</span>
                 </div>
               </div>

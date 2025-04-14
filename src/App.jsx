@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
+import { Provider } from 'react-redux'
+import store from './store'
 import ScrollToTop from './components/common/ScrollToTop'
 import { Home } from './pages/home/Home'
 import Header from "./components/layout/header/Header"
@@ -22,30 +24,32 @@ function App() {
   })
 
   return (
-    <Router
-      v7_startTransition={true}
-      v7_relativeSplatPath={true}
-    >
-      <ScrollToTop />
-      <ThemeProvider theme={theme}>
-        <div className="app">
-          <Header />
-          <Cookies />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/order" element={<Order />} />
-              <Route path="/reviews" element={<Reviews />} />
-              <Route path="/aml-kyc" element={<AmlKyc />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/aboutUs" element={<AboutUs />} />
-              <Route path="*" element={<NoMatch />} />
-            </Routes>
-            <Footer />
-          </main>
-        </div>
-      </ThemeProvider>
-    </Router>
+    <Provider store={store}>
+      <Router
+        v7_startTransition={true}
+        v7_relativeSplatPath={true}
+      >
+        <ScrollToTop />
+        <ThemeProvider theme={theme}>
+          <div className="app">
+            <Header />
+            <Cookies />
+            <main>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/order" element={<Order />} />
+                <Route path="/reviews" element={<Reviews />} />
+                <Route path="/aml-kyc" element={<AmlKyc />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/aboutUs" element={<AboutUs />} />
+                <Route path="*" element={<NoMatch />} />
+              </Routes>
+              <Footer />
+            </main>
+          </div>
+        </ThemeProvider>
+      </Router>
+    </Provider>
   )
 }
 
