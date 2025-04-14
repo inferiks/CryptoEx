@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Grid2 as Grid, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { useBinance } from "../../hooks/binance.hook";
+import { useCbr } from "../../hooks/cbr.hook";
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import './orderCurrency.sass';
@@ -26,6 +27,10 @@ const BlockSell = ({
   const { price: binancePrice } = useBinance(
     currency === 'crypto' ? selectedValue : null,
     currency === 'fiat' ? selectedValue : selectedFiatCurrency
+  );
+
+  const { price: cbrPrice } = useCbr(
+    currency === 'fiat' ? selectedValue : null
   );
 
   const getCurrency = async (url, currencyType) => {
@@ -74,10 +79,15 @@ const BlockSell = ({
 
   useEffect(() => {
     if (otherComponentAmount && otherComponentCurrency && selectedValue && binancePrice) {
-      const newAmount = otherComponentAmount / binancePrice;
-      setAmount(newAmount);
+      if (currency === 'fiat' && cbrPrice) {
+        const newAmount = (otherComponentAmount * binancePrice) / cbrPrice;
+        setAmount(newAmount);
+      } else {
+        const newAmount = otherComponentAmount / binancePrice;
+        setAmount(newAmount);
+      }
     }
-  }, [otherComponentAmount, otherComponentCurrency, binancePrice]);
+  }, [otherComponentAmount, otherComponentCurrency, binancePrice, cbrPrice, currency]);
 
   const handleCurrencyTypeChange = (type) => {
     setCurrency(type);
@@ -90,7 +100,7 @@ const BlockSell = ({
   };
 
   const placeholderText = binancePrice ?
-    `1 ${selectedValue} = ${binancePrice.toFixed(2)} ${currency === 'crypto' ? 'USDT' : selectedFiatCurrency}` :
+    `1 ${selectedValue} = ${currency === 'fiat' ? (binancePrice / cbrPrice).toFixed(2) : binancePrice.toFixed(2)} ${currency === 'crypto' ? 'USDT' : selectedFiatCurrency}` :
     'Select currency first';
 
   const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }));
