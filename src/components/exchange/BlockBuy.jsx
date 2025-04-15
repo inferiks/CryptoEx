@@ -96,7 +96,7 @@ const BlockBuy = ({
   const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }));
 
   return (
-    <Grid className="exchange-order" size={{ xs: 5 }}>
+    <Grid className="exchange-order" size={{ xs: 12, lg: 5 }}>
       <h2>{title}</h2>
       <div className="exchange-order__select">
         <motion.button

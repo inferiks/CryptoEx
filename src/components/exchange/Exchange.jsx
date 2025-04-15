@@ -38,23 +38,6 @@ export default function Exchange() {
   return (
     <Grid className="exchange" container >
 
-      <BlockBuy
-        fetchURL='http://localhost:3001'
-        title="You give"
-        linkedComponent={secondComponentType}
-        onCurrencyTypeChange={handleFirstComponentChange}
-        onAmountChange={handleFirstAmountChange}
-        otherComponentAmount={secondAmount}
-        otherComponentCurrency={secondCurrency}
-        isFirstComponent={true}
-      />
-
-      <SwapIcon isClickable={true} onClick={() => {
-        const temp = firstComponentType;
-        handleFirstComponentChange(secondComponentType);
-        handleSecondComponentChange(temp);
-      }} />
-
       <BlockSell
         fetchURL='http://localhost:3001'
         title="You receive"
@@ -64,6 +47,23 @@ export default function Exchange() {
         otherComponentAmount={firstAmount}
         otherComponentCurrency={firstCurrency}
         isFirstComponent={false}
+      />
+
+      <SwapIcon isClickable={true} onClick={() => {
+        const temp = firstComponentType;
+        handleFirstComponentChange(secondComponentType);
+        handleSecondComponentChange(temp);
+      }} />
+
+      <BlockBuy
+        fetchURL='http://localhost:3001'
+        title="You give"
+        linkedComponent={secondComponentType}
+        onCurrencyTypeChange={handleFirstComponentChange}
+        onAmountChange={handleFirstAmountChange}
+        otherComponentAmount={secondAmount}
+        otherComponentCurrency={secondCurrency}
+        isFirstComponent={true}
       />
 
       <Grid className="exchange-final" size={12} >

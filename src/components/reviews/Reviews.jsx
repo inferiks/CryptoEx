@@ -84,9 +84,25 @@ const Reviews = () => {
           <Swiper
             slidesPerView={3}
             spaceBetween={30}
-            navigation={{
-              prevEl: ".custom-prev",
-              nextEl: ".custom-next"
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                navigation: false,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                navigation: false,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                navigation: {
+                  prevEl: ".custom-prev",
+                  nextEl: ".custom-next",
+                },
+              },
             }}
             modules={[Navigation]}
             className="mySwiper"
@@ -108,7 +124,6 @@ const Reviews = () => {
           </div>
         </div>
       </div>
-
     </Container>
   )
 }

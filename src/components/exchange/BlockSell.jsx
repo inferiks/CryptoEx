@@ -80,7 +80,7 @@ const BlockSell = ({
   useEffect(() => {
     if (otherComponentAmount && otherComponentCurrency && selectedValue && binancePrice) {
       if (currency === 'fiat' && cbrPrice) {
-        const newAmount = (otherComponentAmount * binancePrice) / cbrPrice;
+        const newAmount = otherComponentAmount * cbrPrice;
         setAmount(newAmount);
       } else {
         const newAmount = otherComponentAmount / binancePrice;
@@ -99,14 +99,16 @@ const BlockSell = ({
     }
   };
 
-  const placeholderText = binancePrice ?
-    `1 ${selectedValue} = ${currency === 'fiat' ? (binancePrice / cbrPrice).toFixed(2) : binancePrice.toFixed(2)} ${currency === 'crypto' ? 'USDT' : selectedFiatCurrency}` :
-    'Select currency first';
+  const placeholderText = currency === 'fiat' && cbrPrice ?
+    `1 USD = ${cbrPrice.toFixed(2)} ${selectedValue}` :
+    binancePrice ?
+      `1 ${selectedValue} = ${binancePrice.toFixed(2)} USD` :
+      'Select currency first';
 
   const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }));
 
   return (
-    <Grid className="exchange-order" size={{ xs: 5 }}>
+    <Grid className="exchange-order" size={{ xs: 12, lg: 5 }}>
       {/* <img src="./currencies/BTC.svg" alt="btc" /> */}
       <h2>{title}</h2>
       <div className="exchange-order__select">

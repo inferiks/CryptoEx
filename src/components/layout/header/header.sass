@@ -1,4 +1,5 @@
 @use "../../../variables.sass"
+
 .header
   position: fixed
   width: 80vw
@@ -23,3 +24,101 @@
   &-contacts
     img
       height: 30px
+
+// Hamburger menu styles
+.hamburger
+  display: none
+  padding: 15px
+  cursor: pointer
+  background: transparent
+  border: 0
+  margin: 0
+  outline: none
+
+.hamburger-box
+  width: 30px
+  height: 24px
+  display: inline-block
+  position: relative
+
+.hamburger-inner
+  display: block
+  top: 50%
+  margin-top: -2px
+  width: 30px
+  height: 4px
+  background-color: #000
+  border-radius: 4px
+  position: absolute
+  transition: transform 0.2s ease
+  &::before, &::after
+    content: ""
+    display: block
+    width: 30px
+    height: 4px
+    background-color: #000
+    border-radius: 4px
+    position: absolute
+    transition: transform 0.2s ease
+  &::before
+    top: -10px
+    transition: top 0.2s 0.2s ease, transform 0.2s ease
+  &::after
+    bottom: -10px
+    transition: bottom 0.2s 0.2s ease, transform 0.2s ease
+
+.hamburger--open .hamburger-inner
+  transform: rotate(45deg)
+  &::before
+    top: 0
+    transform: rotate(0)
+    transition: top 0.2s ease, transform 0.2s 0.2s ease
+  &::after
+    bottom: 0
+    transform: rotate(-90deg)
+    transition: bottom 0.2s ease, transform 0.2s 0.2s ease
+
+// Mobile menu
+.mobile-menu
+  position: fixed
+  top: 80px
+  left: 0
+  width: 100%
+  background: variables.$primary-blue
+  padding: 20px 0
+  display: flex
+  flex-direction: column
+  align-items: center
+  transform: translateY(-100%)
+  opacity: 0
+  transition: transform 0.3s ease, opacity 0.3s ease
+  z-index: 999
+  backdrop-filter: blur(5px)
+  border-radius: 0 0 20px 20px
+  &--open
+    transform: translateY(0)
+    opacity: 1
+  &__el
+    padding: 15px 0
+    text-decoration: none
+    width: 100%
+    text-align: center
+    &:hover
+      background: rgba(255, 255, 255, 0.1)
+  &__telegram
+    display: flex
+    align-items: center
+    justify-content: center
+    gap: 10px
+    img
+      height: 24px
+
+@media (max-width: 767px)
+  .header
+    width: 100%
+    border-radius: 0
+    padding: 0 20px
+    &-buttons, &-contacts
+      display: none
+    .hamburger
+      display: inline-block
