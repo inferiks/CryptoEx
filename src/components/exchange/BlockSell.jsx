@@ -6,6 +6,7 @@ import { useBinance } from "../../hooks/binance.hook";
 import { useCbr } from "../../hooks/cbr.hook";
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { NumericFormat } from "react-number-format";
 import './orderCurrency.sass';
 
 const BlockSell = ({
@@ -78,16 +79,18 @@ const BlockSell = ({
   }
 
   useEffect(() => {
-    if (otherComponentAmount && otherComponentCurrency && selectedValue && binancePrice) {
-      if (currency === 'fiat' && cbrPrice) {
-        const newAmount = otherComponentAmount * cbrPrice;
-        setAmount(newAmount);
+    if (otherComponentAmount && selectedValue && binancePrice && cbrPrice) {
+      if (currency === 'crypto') {
+        const amountInUsd = otherComponentAmount / cbrPrice; // фиат → USD
+        const amountInCrypto = amountInUsd / binancePrice;   // USD → крипта
+        setAmount(amountInCrypto);
       } else {
-        const newAmount = otherComponentAmount / binancePrice;
-        setAmount(newAmount);
+        const amountInUsd = otherComponentAmount * binancePrice; // крипта → USD
+        const amountInFiat = amountInUsd * cbrPrice;             // USD → фиат
+        setAmount(amountInFiat);
       }
     }
-  }, [otherComponentAmount, otherComponentCurrency, binancePrice, cbrPrice, currency]);
+  }, [otherComponentAmount, selectedValue, binancePrice, cbrPrice, currency]);
 
   const handleCurrencyTypeChange = (type) => {
     setCurrency(type);
@@ -102,7 +105,7 @@ const BlockSell = ({
   const placeholderText = currency === 'fiat' && cbrPrice ?
     `1 USD = ${cbrPrice.toFixed(2)} ${selectedValue}` :
     binancePrice ?
-      `1 ${selectedValue} = ${binancePrice.toFixed(2)} USD` :
+      `1 ${selectedValue} = ${binancePrice.toFixed(4)} USD` :
       'Select currency first';
 
   const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }));
@@ -178,6 +181,23 @@ const BlockSell = ({
             }}
             sx={{ maxWidth: "150px", marginTop: "10px" }}
             onChange={handleInputChange} />
+          {/* <NumericFormat
+            className="exchange-order__amount"
+            customInput={TextField}
+            label={placeholderText}
+            thousandSeparator=" "
+            decimalSeparator="."
+
+            variant="standard"
+            slotProps={{
+              inputLabel: {
+                shrink: true,
+              }
+            }}
+            value={amount}
+            onChange={handleInputChange}
+            sx={{ maxWidth: "150px", marginTop: "10px" }}
+          /> */}
         </div>
       </div>
     </Grid>

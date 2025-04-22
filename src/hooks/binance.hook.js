@@ -30,7 +30,7 @@ export function useBinance(symbol) {
         );
         if (!response.ok) throw new Error('Ошибка запроса');
         const data = await response.json();
-        setPrice(parseFloat(data.price));
+        setPrice(+data.price);
       } catch (err) {
         setError(err.message || 'Ошибка получения курса');
         throw new Error()

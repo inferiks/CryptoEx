@@ -13,6 +13,9 @@
     text-align: center
     margin: 60px auto
     padding: 25px 50px
+    &__btn
+      width: 12rem
+
     &__result
       display: flex
       justify-content: center
@@ -43,3 +46,11 @@
     &__input
       text-align: left
       margin: 30px 0 30px 0
+
+@media (max-width: 767px)
+  .exchange
+    &-final
+      &__inputs
+        justify-content: space-around
+      &__container
+        grid-template-columns: 1fr

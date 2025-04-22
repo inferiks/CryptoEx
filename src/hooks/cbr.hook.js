@@ -8,7 +8,15 @@ export function useCbr(targetCurrency) {
   const fetchCurrencyRate = async (symbol) => {
     const response = await fetch("https://www.cbr-xml-daily.ru/daily_json.js");
     const data = await response.json();
-    return parseFloat(data.Valute[symbol]?.Value);
+    const valute = data.Valute[symbol];
+
+    if (valute) {
+      const realRate = valute.Value / valute.Nominal;
+      console.log(`${symbol}: Value = ${valute.Value}, Nominal = ${valute.Nominal}, Rate per unit = ${realRate}`);
+      return realRate;
+    }
+
+    return null;
   };
 
   useEffect(() => {
@@ -23,6 +31,15 @@ export function useCbr(targetCurrency) {
           fetchCurrencyRate("USD"),
           fetchCurrencyRate(targetCurrency)
         ]);
+
+        if (targetCurrency === "RUB") {
+          fetchCurrencyRate("USD").then((rate) => {
+            setConvertedPrice(rate);
+          }
+          );
+          setLoading(false);
+          return;
+        }
 
         if (!usdToRub || !targetToRub) {
           throw new Error("Невозможно получить курс валют");

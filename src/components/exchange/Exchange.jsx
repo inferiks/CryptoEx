@@ -116,7 +116,7 @@ export default function Exchange() {
                 </div>
               </div>
               <Link to="/order" >
-                <Button variant="contained" color="success" disableRipple sx={{ width: '12rem', margin: '0 auto' }}>Proceed to order</Button>
+                <Button className="exchange-final__btn" variant="contained" color="success" disableRipple>Proceed to order</Button>
               </Link>
             </div>
           </div>
