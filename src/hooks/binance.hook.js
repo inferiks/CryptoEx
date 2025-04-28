@@ -5,12 +5,6 @@ export function useBinance(symbol) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // const fetchUsdToRub = async () => {
-  //   const response = await fetch("https://www.cbr-xml-daily.ru/daily_json.js");
-  //   const data = await response.json();
-  //   return parseFloat(data.Valute.USD.Value);
-  // };
-
   useEffect(() => {
     if (!symbol) return;
 

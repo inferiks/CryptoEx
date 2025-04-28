@@ -81,10 +81,12 @@ const BlockSell = ({
   useEffect(() => {
     if (otherComponentAmount && selectedValue && binancePrice && cbrPrice) {
       if (currency === 'crypto') {
+        console.log("Amount" + otherComponentAmount + ',' + otherComponentCurrency)
         const amountInUsd = otherComponentAmount / cbrPrice; // фиат → USD
         const amountInCrypto = amountInUsd / binancePrice;   // USD → крипта
         setAmount(amountInCrypto);
       } else {
+        console.log('ddd')
         const amountInUsd = otherComponentAmount * binancePrice; // крипта → USD
         const amountInFiat = amountInUsd * cbrPrice;             // USD → фиат
         setAmount(amountInFiat);
@@ -181,23 +183,6 @@ const BlockSell = ({
             }}
             sx={{ maxWidth: "150px", marginTop: "10px" }}
             onChange={handleInputChange} />
-          {/* <NumericFormat
-            className="exchange-order__amount"
-            customInput={TextField}
-            label={placeholderText}
-            thousandSeparator=" "
-            decimalSeparator="."
-
-            variant="standard"
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              }
-            }}
-            value={amount}
-            onChange={handleInputChange}
-            sx={{ maxWidth: "150px", marginTop: "10px" }}
-          /> */}
         </div>
       </div>
     </Grid>
