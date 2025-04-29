@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Container, Grid } from "@mui/material";
+import { Button, ButtonGroup, Container, Grid2 as Grid } from "@mui/material";
 import './order.sass';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -83,9 +83,7 @@ const Order = () => {
   return (
     <Container>
       <Grid container spacing={2}>
-
-        {/* Блок с инфой о заказе */}
-        <Grid item xs={12} className="order__window order__window_info">
+        <Grid item size={12} className="order__window order__window_info">
           <div className="order__date">
             <h2>Order №{orderData.id}</h2>
             <span>{currentDate}</span>
@@ -98,7 +96,7 @@ const Order = () => {
         </Grid>
 
         {/* Блок обмена валют */}
-        <Grid item xs={12} className="order__window" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Grid item size={12} className="order__window" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="order__amount" style={{ textAlign: 'center' }}>
             <div className="order__currency">{orderData.from_currency}</div>
             <span className="order__total">{orderData.amount}</span>
@@ -113,7 +111,7 @@ const Order = () => {
         </Grid>
 
         {/* Блок оплаты */}
-        <Grid item xs={12} md={6} className="order__transfer_info">
+        <Grid item size={6} md={6} className="order__transfer_info">
           <h3>Amount to be paid:</h3>
           <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
             {orderData.amount} {orderData.from_currency}
@@ -136,7 +134,7 @@ const Order = () => {
         </Grid>
 
         {/* Блок адреса пользователя */}
-        <Grid item xs={12} md={6} className="order__address">
+        <Grid item size={6} md={6} className="order__address">
           <h2>Receiving address:</h2>
           <div style={{
             background: '#fafafa',
@@ -145,7 +143,7 @@ const Order = () => {
             wordBreak: 'break-word',
             fontSize: '1rem'
           }}>
-            {orderData.payment_details ? orderData.payment_details : 'Детали оплаты не указаны'}
+            {orderData.walletAddress ? orderData.walletAddress : 'Детали оплаты не указаны'}
           </div>
           <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#777' }}>
             (This is the wallet address you provided for receiving funds.)

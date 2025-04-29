@@ -1,42 +1,36 @@
-// Определяем переменные здесь, поскольку файл variables не найден
-$green-arctic: #e8f5e9
-$green-spring: #c8e6c9 
-$green-dark: #2e7d32
-
-// Mixins
-@mixin window-style
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
-  border-radius: 10px
+@use '../../variables'
+@use '../../mixins.sass'
 
 .order
   &__button
     background-color: black
 
   &__window
+    @include mixins.window-style
     display: flex
     justify-content: space-between
     margin: 20px auto
     text-align: center
-    background-color: $green-arctic
+    background-color: variables.$green-arctic
     padding: 40px 40px
     max-width: 100%
     width: 600px
     align-items: center
-    @include window-style
 
     &_info
-      background-color: $green-spring
+      background-color: variables.$green-spring
 
   &__info
     text-align: left
 
   &__amount
+    @include mixins.window-style
     display: flex
     align-items: center
     justify-content: space-between
     text-align: left
     padding: 10px
-    background-color: $green-spring
+    background-color: variables.$green-spring
     border-radius: 20px
     margin-bottom: 10px
 
@@ -52,23 +46,22 @@ $green-dark: #2e7d32
   &__total
     font-size: 20px
     font-weight: bold
-    color: $green-dark
     flex: 1
     text-align: right
     padding-right: 20px
 
   &__address
+    @include mixins.window-style
     margin-top: 20px
-    background-color: $green-spring
+    background-color: variables.$green-spring
     border-radius: 30px
     padding: 30px 40px
     word-break: break-all
-    @include window-style
 
   &__transfer_info
     margin-top: 20px
-    background-color: $green-arctic
+    background-color: variables.$green-arctic
+    @include mixins.window-style
     border-radius: 30px
     padding: 30px 40px
     word-break: break-all
-    @include window-style

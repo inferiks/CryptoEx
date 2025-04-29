@@ -169,7 +169,7 @@ export default function Exchange() {
         isFirstComponent={true}
       />
 
-      <Grid className="exchange-final" xs={12}>
+      <Grid className="exchange-final" lg={12} xs={12}>
         <h2>Confirm order</h2>
 
         <div className="exchange-final__container">
