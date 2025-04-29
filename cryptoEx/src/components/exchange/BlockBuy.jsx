@@ -108,7 +108,7 @@ const BlockBuy = ({
       `1 ${selectedValue} = ${binancePrice.toFixed(4)} USD` :
       'Select currency first';
 
-  const currenciesWithKeys = dataArray.map(value => ({ ...value, id: uuidv4() }));
+  const currenciesWithKeys = dataArray.map(value => ({ ...value, id: value.name }));
 
   return (
     <Grid className="exchange-order" size={{ xs: 12, lg: 5 }}>
