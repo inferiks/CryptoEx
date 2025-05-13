@@ -1,6 +1,3 @@
-Вот готовый `README.md` файл для твоего проекта:
-
-````markdown
 # CryptoEx Project
 
 > [!NOTE]  
@@ -23,31 +20,31 @@
 1. Установите зависимости:
    ```bash
    pip install -r requirements.txt
-````
+   ```
 
 2. Установите и запустите **PostgreSQL**.
    Создайте базу данных с названием:
 
-   ```text
+   ```
    CryptoEx
    ```
 
 3. Перейдите в папку `crypto_backend`:
 
-   ```bash
+   ```
    cd crypto_backend
    ```
 
 4. Выполните миграции:
 
-   ```bash
+   ```
    python manage.py makemigrations
    python manage.py migrate
    ```
 
 5. Запустите сервер:
 
-   ```bash
+   ```
    python manage.py runserver
    ```
 
@@ -62,13 +59,13 @@
 
 1. Перейдите в папку `cryptoEx`:
 
-   ```bash
+   ```
    cd cryptoEx
    ```
 
 2. Запустите локальный dev-сервер:
 
-   ```bash
+   ```
    pnpm install
    pnpm run dev
    ```
